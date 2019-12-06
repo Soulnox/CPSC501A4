@@ -29,7 +29,6 @@ def get_dataset(file_path, **kwargs):
 
 raw_train_data = get_dataset(file_path,select_columns=SELECT_COLUMNS)
 raw_test_data = get_dataset(file_path,select_columns=SELECT_COLUMNS)
-temp_dataset = get_dataset(file_path,select_columns=SELECT_COLUMNS)
 
 class PackNumericFeatures(object):
   def __init__(self, names):
