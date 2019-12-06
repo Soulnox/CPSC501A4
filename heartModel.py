@@ -27,8 +27,11 @@ def get_dataset(file_path, **kwargs):
       **kwargs)
   return dataset
 
-raw_train_data = get_dataset(file_path,select_columns=SELECT_COLUMNS)
-raw_test_data = get_dataset(file_path,select_columns=SELECT_COLUMNS)
+temp_data = get_dataset(file_path,select_columns=SELECT_COLUMNS)
+temp_data = temp_data.shuffle(462)
+raw_train_data = temp_data.take(320)
+raw_test_data = temp_data.take(1)
+raw_test_data.concatenate(temp_data.skip(320))
 
 class PackNumericFeatures(object):
   def __init__(self, names):
