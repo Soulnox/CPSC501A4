@@ -8,7 +8,7 @@ def main():
      x_test, y_test = data
      print(f"--Load Model {sys.argv[2]}--")
      #Load the model that should be in sys.argv[2]
-     model = None     
+     model = tf.keras.models.load_model(sys.argv[2])  
      pick = input(f"Pick test_image (0 -> {len(x_test)-1}):")
      while pick.isdigit() and int(pick) >= 0 and int(pick) < len(x_test):
         pick = int(pick)
@@ -21,10 +21,12 @@ def main():
 
 def predict(model, class_names, img, true_label):
     img = np.array([img])
+    img1 = np.expand_dims(img, -1)
     #Replace these two lines with code to make a prediction
-    prediction = [1/10,1/10,1/10,1/10,1/10,1/10,1/10,1/10,1/10,1/10]
+    prediction = model.predict(img1)
+    prediction = prediction[0]
     #Determine what the predicted label is
-    predicted_label = 0
+    predicted_label = model.predict_classes(img1)
     plot(class_names, prediction, true_label, predicted_label, img[0])
     plt.show()
 
